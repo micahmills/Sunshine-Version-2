@@ -1,13 +1,19 @@
 package com.example.android.sunshine.app;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -52,11 +58,29 @@ public class MainActivity extends ActionBarActivity {
 
         public PlaceholderFragment() {
         }
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+            String[] forecastArray = {
+                    "Today-Sunny-88/63",
+                    "Tomorrow-Cold-45/35",
+                    "Wed-Hot-100/98",
+                    "Thurs-Hot-100/98",
+                    "Fri-Hot-100/98",
+                    "Sat-Hot-100/98",
+                    "Sun-Hot-100/98",
+            };
+
+            List<String> weekForecast = new ArrayList<String>(
+                    Arrays.asList(forecastArray)
+            );
+            ArrayAdapter<String> mForecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_itemforcast_textview, weekForecast());
+
+            ListView listView = (ListView) rootView.findViewByID(R.id.listview_forecast);
+            listView.setAdapter(mForecastAdapter);
+
             return rootView;
         }
     }
