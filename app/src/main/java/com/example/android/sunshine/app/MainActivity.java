@@ -56,6 +56,8 @@ public class MainActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+        ArrayAdapter<String> mForecastAdapter;
+
         public PlaceholderFragment() {
         }
         @Override
@@ -76,9 +78,21 @@ public class MainActivity extends ActionBarActivity {
             List<String> weekForecast = new ArrayList<String>(
                     Arrays.asList(forecastArray)
             );
-            ArrayAdapter<String> mForecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_itemforcast_textview, weekForecast());
 
-            ListView listView = (ListView) rootView.findViewByID(R.id.listview_forecast);
+
+            // Now that we have some dummy forecast data, create an ArrayAdapter.
+            // The ArrayAdapter will take data from a source (like our dummy forecast) and
+            // use it to populate the ListView it's attached to.
+            mForecastAdapter =
+                    new ArrayAdapter<String>(
+                            getActivity(), // The current context (this activity)
+                            R.layout.list_item_forecast, // The name of the layout ID.
+                            R.id.list_itemforcast_textview, // The ID of the textview to populate.
+                            weekForecast);
+
+
+            // Get a reference to the ListView, and attach this adapter to it.
+            ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
             listView.setAdapter(mForecastAdapter);
 
             return rootView;
